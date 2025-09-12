@@ -3,11 +3,9 @@ import pandas as pd
 
 st.title("Planet Mark Submission Calculator")
 
-st.set_page_config(page_title="Homepage")
-
-st.write("Test")
-
-data_page = st.Page("calculate_data.py", title="Create entry")
+data_page = st.Page("calculate_data.py", title="Calculate data")
 feedback_page = st.Page("feedback.py", title="Feedback")
+
+st.sidebar.header("Page navigation")
 pg = st.navigation([data_page, feedback_page])
 pg.run()
