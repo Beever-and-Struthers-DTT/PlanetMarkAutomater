@@ -51,7 +51,7 @@ if uploaded_file is not None:
     total_chargable_miles = single_charge_miles + shared_charge_miles
     st.write('Total chargeable miles by car:', total_chargable_miles)
 
-    train_taxi_charge_mileage = grouped.get_group('Train/Bus/Taxi/Air Fares Cchargeable')
+    train_taxi_charge_mileage = grouped.get_group('Train/Bus/Taxi/Air Fares Chargeable')
     train_taxi_charge_miles = ((train_taxi_charge_mileage['WIP_Amount'].sum()) / 0.55).round(2)
     st.write('Total chargeable miles by train and taxi:', train_taxi_charge_miles)
 
