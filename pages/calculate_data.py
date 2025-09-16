@@ -105,7 +105,8 @@ if uploaded_file is not None:
     total_sage_flight_costs = (df['Flights'].sum()).round(2)
     st.write('Total flight costs: ', total_sage_flight_costs)
     st.caption('To calculate mileage from these flights, the necessary rows are below.')
-    st.dataframe(df.loc[df['Flights'] > 0])
+    flights_df = df.loc[df['Flights'] > 0]
+    st.dataframe(flights_df)
 
     total_sage_hotel_costs = (df['Hotels'].sum()).round(2)
     st.write('Total hotel costs: ', total_sage_hotel_costs)
