@@ -62,8 +62,8 @@ if uploaded_file is not None:
     st.write('Total chargeable hotel accomodation costs:', total_charge_hotel_costs)
 
     print('-----------------------------------------------------------------------------')
-    st.subheader("Combined expenses", divider=True)
-    st.badge("Note: This combines only expenses from PE."
+    st.subheader("Combined PE expenses", divider=True)
+    st.badge("Note: This combines only expenses from PE. "
              "Sage expenses have been calculated separately.", color="orange")
 
     total_single_miles = single_noncharge_miles + single_charge_miles
@@ -82,6 +82,7 @@ if uploaded_file is not None:
 
     print('-----------------------------------------------------------------------------')
     st.subheader("Sage expenses", divider=True)
+    st.caption("Note: Sage expenses are non-chargeable.")
 
     PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name='Sage NL Downloads 7400 7420')
     # Uses row from Excel to name the columns
@@ -103,6 +104,18 @@ if uploaded_file is not None:
 
     total_sage_flight_costs = (df['Flights'].sum()).round(2)
     st.write('Total flight costs: ', total_sage_flight_costs)
+    st.caption('To calculate mileage from these flights, the necessary rows are below.')
+    st.dataframe(df.loc[df['Flights'] > 0])
 
     total_sage_hotel_costs = (df['Hotels'].sum()).round(2)
     st.write('Total hotel costs: ', total_sage_hotel_costs)
+
+    print('-----------------------------------------------------------------------------')
+    st.subheader("Total expenses", divider=True)
+    st.caption("These are the totals from both PE and Sage expenses.")
+
+    st.write('Total miles travelled by car: ', (total_single_miles + total_shared_miles + total_sage_car_mileage))
+    st.write('Total miles travelled by train: ', (total_train_taxi_miles + total_sage_train_mileage))
+    st.write('Total miles travelled by taxi: ', total_sage_taxi_mileage)
+    st.caption("Please note the train/taxi mileage may be inaccurate due to data provided by PE.")
+    st.write('Total hotel costs: ', (total_hotel_costs + total_sage_hotel_costs))
