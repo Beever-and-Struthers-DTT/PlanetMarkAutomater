@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -14,7 +15,7 @@ if uploaded_file is not None:
     #     combined_df = pd.concat([df], ignore_index=True)
 
     #st.dataframe(combined_df)
-
+    st.subheader("Non-chargeable expenses", divider=True)
     PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name='Non-Chg')
     # print(PE_df)
 
@@ -37,6 +38,7 @@ if uploaded_file is not None:
     st.write('Total non-chargeable hotel accomodation costs:', total_noncharge_hotel_costs)
 
     print('-----------------------------------------------------------------------------')
+    st.subheader("Chargeable expenses", divider=True)
     PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name='Chg')
     # print(PE_df)
 
@@ -58,17 +60,40 @@ if uploaded_file is not None:
     hotel_expenses = grouped.get_group('Hotel Accomodation Chargeable')
     total_charge_hotel_costs = (hotel_expenses['WIP_Amount'].sum()).round(2)
     st.write('Total chargeable hotel accomodation costs:', total_charge_hotel_costs)
+
     print('-----------------------------------------------------------------------------')
+    st.subheader("Combined expenses", divider=True)
+    st.caption("This combines only expenses from PE. "
+               "Sage expenses have been calculated separately.")
+
     total_single_miles = single_noncharge_miles + single_charge_miles
-    st.write('Total solo miles by car:', total_single_miles)
+    st.write('Total solo miles by car:', total_single_miles.round(2))
 
     total_shared_miles = shared_noncharge_miles + shared_charge_miles
-    st.write('Total pooled miles by car:', total_shared_miles)
+    st.write('Total pooled miles by car:', total_shared_miles.round(2))
 
     total_train_taxi_miles = train_taxi_noncharge_miles + train_taxi_charge_miles
-    st.write('Total miles by train and taxi:', total_train_taxi_miles)
-    st.caption("Most of these miles will be done via train, however it is impossible to"
+    st.write('Total miles by train and taxi:', total_train_taxi_miles.round(2))
+    st.badge("Note:", color="orange")
+    st.caption("Most of these miles will be done via train, however it is impossible to "
                "determine between journeys taken via train/taxi based on the data provided.")
 
     total_hotel_costs = total_noncharge_hotel_costs + total_charge_hotel_costs
-    st.write('Total hotel costs:', total_hotel_costs)
+    st.write('Total hotel costs:', total_hotel_costs.round(2))
+
+    print('-----------------------------------------------------------------------------')
+    st.subheader("Sage expenses", divider=True)
+
+    PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name='Sage NL Downloads 7400 7420')
+    # Removes extraneous columns
+    # PE_df = PE_df = PE_df.iloc[5:]
+    # Uses row from Excel to name the columns
+    PE_df.columns = PE_df.iloc[0]
+    # Removes row used to name df
+    PE_df = PE_df = PE_df.iloc[1:]
+
+    df = PE_df.replace(to_replace=np.nan, value=0)
+    print(df)
+
+    total_sage_train_mileage = (df['Trains'].sum() / 0.55).round(2)
+    print('Total miles by train in Sage: ', total_sage_train_mileage)
