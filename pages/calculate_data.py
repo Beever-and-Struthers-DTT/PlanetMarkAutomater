@@ -63,8 +63,8 @@ if uploaded_file is not None:
 
     print('-----------------------------------------------------------------------------')
     st.subheader("Combined expenses", divider=True)
-    st.caption("This combines only expenses from PE. "
-               "Sage expenses have been calculated separately.")
+    st.badge("Note: This combines only expenses from PE."
+             "Sage expenses have been calculated separately.", color="orange")
 
     total_single_miles = single_noncharge_miles + single_charge_miles
     st.write('Total solo miles by car:', total_single_miles.round(2))
@@ -74,7 +74,6 @@ if uploaded_file is not None:
 
     total_train_taxi_miles = train_taxi_noncharge_miles + train_taxi_charge_miles
     st.write('Total miles by train and taxi:', total_train_taxi_miles.round(2))
-    st.badge("Note:", color="orange")
     st.caption("Most of these miles will be done via train, however it is impossible to "
                "determine between journeys taken via train/taxi based on the data provided.")
 
@@ -85,15 +84,25 @@ if uploaded_file is not None:
     st.subheader("Sage expenses", divider=True)
 
     PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name='Sage NL Downloads 7400 7420')
-    # Removes extraneous columns
-    # PE_df = PE_df = PE_df.iloc[5:]
     # Uses row from Excel to name the columns
     PE_df.columns = PE_df.iloc[0]
     # Removes row used to name df
     PE_df = PE_df = PE_df.iloc[1:]
 
     df = PE_df.replace(to_replace=np.nan, value=0)
-    print(df)
 
     total_sage_train_mileage = (df['Trains'].sum() / 0.55).round(2)
-    print('Total miles by train in Sage: ', total_sage_train_mileage)
+    st.write('Total miles by train: ', total_sage_train_mileage)
+
+    total_sage_taxi_mileage = (df['Taxi'].sum() / 2.35).round(2)
+    st.write('Total miles by taxi: ', total_sage_taxi_mileage)
+
+    total_sage_car_mileage = (df['Mileage'].sum() / 0.45).round(2)
+    st.write('Total miles by car: ', total_sage_car_mileage)
+    st.caption("Due to data provided, it is assumed that these trips were solo, and have been calculated as such.")
+
+    total_sage_flight_costs = (df['Flights'].sum()).round(2)
+    st.write('Total flight costs: ', total_sage_flight_costs)
+
+    total_sage_hotel_costs = (df['Hotels'].sum()).round(2)
+    st.write('Total hotel costs: ', total_sage_hotel_costs)
