@@ -88,7 +88,7 @@ if uploaded_file is not None:
     # Uses row from Excel to name the columns
     PE_df.columns = PE_df.iloc[0]
     # Removes row used to name df
-    PE_df = PE_df = PE_df.iloc[1:]
+    PE_df = PE_df.iloc[1:]
 
     df = PE_df.replace(to_replace=np.nan, value=0)
 
@@ -106,7 +106,7 @@ if uploaded_file is not None:
     st.write('Total flight costs: ', total_sage_flight_costs)
     st.caption('To calculate mileage from these flights, the necessary rows are below.')
     flights_df = df.loc[df['Flights'] > 0]
-    st.dataframe(flights_df)
+    st.table(flights_df)
 
     total_sage_hotel_costs = (df['Hotels'].sum()).round(2)
     st.write('Total hotel costs: ', total_sage_hotel_costs)

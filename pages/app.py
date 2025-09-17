@@ -4,8 +4,9 @@ import openpyxl
 
 st.title("Planet Mark Submission Calculator")
 
+help_page = st.Page("get_started.py", title="Get started")
 data_page = st.Page("calculate_data.py", title="Calculate data")
-feedback_page = st.Page("feedback.py", title="Feedback")
 
-pg = st.navigation([data_page, feedback_page])
+
+pg = st.navigation([help_page, data_page])
 pg.run()
