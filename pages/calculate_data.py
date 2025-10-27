@@ -39,7 +39,7 @@ if uploaded_file is not None:
 
     print('-----------------------------------------------------------------------------')
     st.subheader("Chargeable expenses", divider=True)
-    PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name=2)
+    PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name=1)
     # print(PE_df)
 
     grouped = PE_df.groupby(PE_df.WIP_Analysis)
@@ -84,7 +84,7 @@ if uploaded_file is not None:
     st.subheader("Sage expenses", divider=True)
     st.caption("Note: Sage expenses are non-chargeable.")
 
-    PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name=3)
+    PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name=2)
     # Uses row from Excel to name the columns
     PE_df.columns = PE_df.iloc[0]
     # Removes row used to name df
