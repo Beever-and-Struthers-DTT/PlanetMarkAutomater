@@ -89,8 +89,10 @@ if uploaded_file is not None:
     PE_df.columns = PE_df.iloc[0]
     # Removes row used to name df
     PE_df = PE_df.iloc[1:]
+    PE_df = PE_df.rename(columns={np.nan: 'Expense Details'})
 
     df = PE_df.replace(to_replace=np.nan, value=0)
+    df.drop(columns=df.columns[-2:], axis=1, inplace=True)
 
     total_sage_train_mileage = (df['Trains'].sum() / 0.55).round(2)
     st.write('Total miles by train: ', total_sage_train_mileage)
