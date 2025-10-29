@@ -1,7 +1,5 @@
 import streamlit as st
 from geopy import Nominatim, distance
-from calculate_data import flights_df
-
 
 def get_coordinates(place_name):
   geolocator = Nominatim(user_agent="geo_locator")
