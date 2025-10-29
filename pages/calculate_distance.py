@@ -1,5 +1,6 @@
 import streamlit as st
 from geopy import Nominatim, distance
+from calculate_data import flights_df
 
 
 def get_coordinates(place_name):
@@ -13,7 +14,10 @@ def get_coordinates(place_name):
 st.set_page_config(page_title="Calculate distance")
 
 st.write("Please note that the distance calculator is primarily for calculating the distance"
-         " for flight expenses")
+         " for flight expenses.")
+
+st.caption("For reference, the below are flights recorded in Sage expenses:")
+st.dataframe(flights_df)
 
 with st.form("distance_calculator"):
     start_city = st.text_input("Starting city")
