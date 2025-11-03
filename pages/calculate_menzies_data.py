@@ -2,6 +2,11 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
+#from pages.expense_calculations import calculate_train_mileage
+
+def calculate_train_mileage(column):
+    return (column.sum()/0.55).round(2)
+
 st.set_page_config(page_title="Menzies data")
 
 uploaded_file = st.file_uploader("Upload the Excel sheet here")
@@ -18,7 +23,8 @@ if uploaded_file is not None:
     st.write('Total pooled miles: ', total_shared_miles)
 
     train_mileage = df[df['ExpenseTypeReference'] == 'Train Fare']
-    total_train_mileage = (train_mileage['Net£'].sum() / 0.55).round(2)
+    #total_train_mileage = (train_mileage['Net£'].sum() / 0.55).round(2)
+    total_train_mileage = train_mileage['Net£'].apply(calculate_train_mileage)
     st.write('Total train miles: ', total_train_mileage)
 
     taxi_mileage = df[df['ExpenseTypeReference'] == 'Taxi']
