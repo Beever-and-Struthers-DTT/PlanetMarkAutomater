@@ -1,13 +1,12 @@
 import streamlit as st
-import pandas as pd
-import openpyxl
 
 st.title("Planet Mark Submission Calculator")
 
 help_page = st.Page("get_started.py", title="Get started")
-data_page = st.Page("calculate_data.py", title="Calculate data")
+PE_page = st.Page("calculate_PE_data.py", title="Calculate PE data")
+menzies_page = st.Page("calculate_menzies_data.py", title="Calculate Menzies data")
 distance_page = st.Page("calculate_distance.py", title="Calculate distance")
 
 
-pg = st.navigation([help_page, data_page, distance_page])
+pg = st.navigation([help_page, PE_page, distance_page])
 pg.run()
