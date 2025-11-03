@@ -8,5 +8,5 @@ menzies_page = st.Page("calculate_menzies_data.py", title="Calculate Menzies dat
 distance_page = st.Page("calculate_distance.py", title="Calculate distance")
 
 
-pg = st.navigation([help_page, PE_page, distance_page])
+pg = st.navigation([help_page, PE_page, menzies_page, distance_page])
 pg.run()

@@ -18,9 +18,15 @@ Change the column names for *WIP Amount* and *WIP Analysis* to *WIP_Amount* and 
 st.image("ColumnNames.png")
 
 st.subheader("Step 3", divider=True)
-st.markdown('''This applies to the **Sage downloads** sheet only.
+st.markdown('''The follow steps apply to the **Sage downloads** sheet only.
 
 Remove the extra rows at the top of the sheet, so that the table columns is the first bit of data read by the calculator.''')
 st.image("SageTableHeadersBefore.png", caption="Before")
 st.write("Please leave the first row of the sheet empty, as shown below.")
 st.image("SageTableHeadersAfter.png", caption="After")
+
+st.subheader("Step 4", divider=True)
+st.write("Merge the hotel/accomodation tables with the travel table (the one you just removed the headers for).")
+st.image("SageTablesSeparate.png", caption="Before")
+st.write("Remove the totals and header, so that the sheet becomes a single table.")
+st.image("SageTablesMerged.png", caption="After")
