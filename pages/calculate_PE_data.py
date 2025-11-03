@@ -2,10 +2,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-
-
 st.set_page_config(page_title="Practice Engine data")
-
 
 uploaded_file = st.file_uploader("Upload the Excel sheet here")
 
@@ -37,7 +34,7 @@ if uploaded_file is not None:
     total_noncharge_hotel_costs = (hotel_expenses['WIP_Amount'].sum()).round(2)
     st.write('Total non-chargeable hotel accomodation costs:', total_noncharge_hotel_costs)
 
-    print('-----------------------------------------------------------------------------')
+    #print('-----------------------------------------------------------------------------')
     st.subheader("Chargeable expenses", divider=True)
     PE_df = pd.read_excel(uploaded_file, index_col=0, sheet_name=1)
     # print(PE_df)
@@ -61,7 +58,7 @@ if uploaded_file is not None:
     total_charge_hotel_costs = (hotel_expenses['WIP_Amount'].sum()).round(2)
     st.write('Total chargeable hotel accomodation costs:', total_charge_hotel_costs)
 
-    print('-----------------------------------------------------------------------------')
+    #print('-----------------------------------------------------------------------------')
     st.subheader("Combined PE expenses", divider=True)
     st.badge("Note: This combines only expenses from PE. "
              "Sage expenses have been calculated separately.", color="orange")
@@ -80,7 +77,7 @@ if uploaded_file is not None:
     total_hotel_costs = total_noncharge_hotel_costs + total_charge_hotel_costs
     st.write('Total hotel costs:', total_hotel_costs.round(2))
 
-    print('-----------------------------------------------------------------------------')
+    #print('-----------------------------------------------------------------------------')
     st.subheader("Sage expenses", divider=True)
     st.caption("Note: Sage expenses are non-chargeable.")
 
@@ -113,7 +110,7 @@ if uploaded_file is not None:
     total_sage_hotel_costs = (df['Hotels'].sum()).round(2)
     st.write('Total hotel costs: ', total_sage_hotel_costs)
 
-    print('-----------------------------------------------------------------------------')
+    #print('-----------------------------------------------------------------------------')
     st.subheader("Total expenses", divider=True)
     st.caption("These are the totals from both PE and Sage expenses.")
 
